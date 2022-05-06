@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: microservicio-empresarial-cuentacorriente
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:7000    
+  banner:
+    location: classpath:banner/banner.txt
+    image:
+     location: classpath:fotocreador/microservicios.png  
+  kafka:
+    bootstrap-servers: LIM-8VD52F3.usersad.everis.int:9092      
+     
+     
+config:
+ balanceador:
+  test: prueba balanceador de microservicio-empresarial-cuentacorriente
+  
+  
+  
+webclient:
+  corporateclient:
+    conexion: http://localhost:8090/api/cliente/juridico/
+    
+  currentaccount:
+    conexion: http://localhost:8090/api/pasivo/cuentacorriente/
