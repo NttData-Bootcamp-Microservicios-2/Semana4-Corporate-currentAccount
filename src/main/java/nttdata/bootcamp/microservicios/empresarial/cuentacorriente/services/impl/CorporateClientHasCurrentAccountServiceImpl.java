@@ -30,26 +30,39 @@ public class CorporateClientHasCurrentAccountServiceImpl implements CorporateCli
 	   private final WebClient webClientCurrentAccount;
 	   
 	   
-	@Autowired
+	
 	CorporateClientHasCurrentAccountRepository repository;
 	
 	
 	
-	public CorporateClientHasCurrentAccountServiceImpl(@Value("${webclient.corporateclient.conexion}") String endpointCorporateclient,
+	public CorporateClientHasCurrentAccountServiceImpl(CorporateClientHasCurrentAccountRepository repository,@Value("${webclient.corporateclient.conexion}") String endpointCorporateclient,
 			WebClient.Builder client1,
 			@Value("${webclient.currentaccount.conexion}") String endpointCurrentAccount,
 					WebClient.Builder client2) {
+		
+		this.repository =repository;
 		
 		this.webClientCorporateClient = client1.baseUrl(endpointCorporateclient).build();;
 		this.webClientCurrentAccount = client2.baseUrl(endpointCurrentAccount).build();;
 	}
 
 	   private Mono<CorporateClient> findCorporateClientByIdentifier(String id) {
-	        return webClientCorporateClient.get().uri("/id/" + id).retrieve().bodyToMono(CorporateClient.class).share();
+	        return webClientCorporateClient
+	        		.get()
+	        		.uri("/id/" + id)
+	        		
+	        		.retrieve()
+	        		.bodyToMono(CorporateClient.class);
+	        		//.share();
 	    }
 
 	    private Mono<CurrentAccountPassiveAccount> findCurrentAccountByIdentifier(String id) {
-	        return webClientCurrentAccount.get().uri("/id/" + id).retrieve().bodyToMono(CurrentAccountPassiveAccount.class).share();
+	        return webClientCurrentAccount
+	        		.get()
+	        		.uri("/id/" + id)
+	        		.retrieve()
+	        		.bodyToMono(CurrentAccountPassiveAccount.class);
+	        		//.share();
 	    }
 	
 	    
